@@ -4,7 +4,15 @@ const path=require("path")
 
 const app = express();
 
-app.use(express.static(path.join(__dirname,'pages')))
+let posts = [
+  { id: 1, title: 'Post One' },
+  { id: 2, title: 'Post Two' },
+  { id: 3, title: 'Post Three' },
+  ];
+
+app.get("/api/posts",(req,res)=>{
+  res.json(posts)
+})
 
 const port = process.env.PORT || 3000;
 
