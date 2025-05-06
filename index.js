@@ -12,8 +12,20 @@ let posts = [
   { id: 3, title: 'Post Three' },
   ];
 
+//get all posts
 app.get("/api/posts",(req,res)=>{
   res.json(posts)
+})
+
+//get params(id) posts
+app.get("/api/posts/:id",(req,res)=>{
+  const id=parseInt(req.params.id)
+  const itemPosts=posts.find(item=>item.id===id)
+  if(itemPosts===undefined){
+    res.json({messages:"this item not in server"})
+  }else{
+    res.json(itemPosts)
+  }
 })
 
 const port = process.env.PORT || 3000;
