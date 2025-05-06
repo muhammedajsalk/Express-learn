@@ -1,23 +1,13 @@
-
-const express=require("express")
+const express = require("express");
 const path=require("path")
 
-const app=express()
 
-app.get("/",(req,res)=>{
-    res.send("welcome home")
-})
+const app = express();
 
-app.get("/about",(req,res)=>{
-   res.send("welcome about")
-})
+app.use(express.static(path.join(__dirname,'pages')))
 
-app.get("/contact",(req,res)=>{
-  res.send("welcome conatct")
-})
+const port = process.env.PORT || 3000;
 
-const port=process.env.PORT || 3000
-
-app.listen(port,()=>{
-    console.log(`server is runnig ${port}`)
-})
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
