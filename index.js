@@ -12,9 +12,18 @@ let posts = [
   { id: 3, title: 'Post Three' },
   ];
 
-//get all posts
+//get all posts and quary url logic
 app.get("/api/posts",(req,res)=>{
-  res.json(posts)
+  console.log(req.query.limit);
+  const newlimit=parseInt(req.query.limit)
+  if(newlimit<=posts.length){ 
+    const newposts=posts.slice(0,newlimit)
+    res.json(newposts)
+  }else if(newlimit>=posts.length){
+    res.json(`items is only ${posts.length}`)
+  }else{
+    res.json(posts)
+  }
 })
 
 //get params(id) posts
@@ -27,6 +36,8 @@ app.get("/api/posts/:id",(req,res)=>{
     res.json(itemPosts)
   }
 })
+
+
 
 const port = process.env.PORT || 3000;
 
