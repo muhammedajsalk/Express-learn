@@ -1,12 +1,11 @@
 const express = require('express')
-const token = require("./middle ware/token")
-const validation = require('./middle ware/validation')
+
 
 const app = express()
 
-const middleware = [token, validation]
+app.use(decoration)
 
-app.get("/", middleware, (req, res) => {
+app.get("/", (req, res) => {
   console.log("user authetication success");
   res.send("<h1>Success</h1>")
 })
@@ -15,6 +14,11 @@ app.get("/", middleware, (req, res) => {
 app.listen(3000, () => {
   console.log("the server is runnig");
 })
+
+function decoration(req,res,next){
+  console.log("user is comming");
+  next()
+}
 
 
 
