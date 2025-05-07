@@ -14,15 +14,14 @@ let posts = [
 
 //get all posts and quary url logic
 app.get("/api/posts",(req,res)=>{
-  console.log(req.query.limit);
   const newlimit=parseInt(req.query.limit)
   if(newlimit<=posts.length){ 
     const newposts=posts.slice(0,newlimit)
-    res.json(newposts)
+    res.status(200).json(newposts)
   }else if(newlimit>=posts.length){
-    res.json(`items is only ${posts.length}`)
+    res.status(404).json(`page is not found`)
   }else{
-    res.json(posts)
+    res.status(200).json(posts)
   }
 })
 
@@ -31,9 +30,9 @@ app.get("/api/posts/:id",(req,res)=>{
   const id=parseInt(req.params.id)
   const itemPosts=posts.find(item=>item.id===id)
   if(itemPosts===undefined){
-    res.json({messages:"this item not in server"})
+    res.status(404).json({messages:"this page is not found"})
   }else{
-    res.json(itemPosts)
+    res.status(200).json(itemPosts)
   }
 })
 
@@ -44,3 +43,16 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
