@@ -1,29 +1,18 @@
-const express=require("express")
+const express=require('express')
 
 const app=express()
 
-const multer=require('multer')
+const bodyParse=require('body-parser')
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname)
-    }
-  })
+app.use(bodyParse.json())
 
+app.use(bodyParse.urlencoded({extended:true}))
 
-const upload=multer({storage})
-
-app.get("/",(req,res)=>{
-   res.send("home")
-})
-
-app.post("/api/upload",upload.single("file"),(req,res)=>{
-    res.send("succefully post")
+app.post("/login",(req,res)=>{
+  const {username,password}=req.body
+    res.send(`new user name is ${username} and his password ${password}`)
 })
 
 app.listen(3000,()=>{
-    console.log("ther server is runnig 3000")
+  console.log("server is runnig")
 })
